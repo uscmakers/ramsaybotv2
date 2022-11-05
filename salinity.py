@@ -8,26 +8,25 @@
 #afaik, temperature will give us a correction factor
 # we will do r=r*(correction factor)^(temperature diff from calibration temp)
 
-import RPi.GPIO as GPIO		
+import RPi.GPIO as GPIO    	 
 
 #we will need this module since rpi does not have AC current reader
 from gpiozero import MCP3008    
 
 from time import sleep
-
+#GPIO.setmode(GPIO.BOARD)
 #pin setup:
 acVoltagePin = MCP3008(0)
-leftProbe=3
+eftProbe=3
 rightProbe=5
 
 #GPIO setup:
-GPIO.setwarnings(False) 	#disable warnings
-GPIO.setmode(GPIO.BOARD)	#set pin numbering format
-GPIO.setup(leftProbe, GPIO.OUT)	#set GPIO as output
-GPIO.setup(rightProbe, GPIO.OUT)	#set GPIO as output
+GPIO.setwarnings(False)     	#disable warnings
+    	#set pin numbering format
+GPIO.setup(leftProbe, GPIO.OUT) #set GPIO as output
+GPIO.setup(rightProbe, GPIO.OUT)    	#set GPIO as output
 
 #other params used:
-
 #AC milisecond delay
 delaySeconds=0.5
 
@@ -36,7 +35,7 @@ Vin=3.3
 Vout=0
 
 #number of samples to take to get an avg resistance
-samples=1000
+samples=10
 
 #value in ohms, of R1,R2:
 R1=1000
@@ -51,25 +50,20 @@ avg=0
 # by reading the voltage in the ac input pin
 
 while True:
-    tot=0
-    for i in range(samples):
-        #generate PWM
-        GPIO.output(leftProbe,GPIO.LOW)
-        GPIO.output(rightProbe,GPIO.HIGH)
-        sleep(delaySeconds)
-        GPIO.output(leftProbe,GPIO.HIGH)
-        GPIO.output(rightProbe,GPIO.LOW)
-        
-        #read the voltage on the analog pin, pot() gives a value b/w 0,1
-        Vout=acVoltagePin.pot()*Vin
-        buff=(Vin/Vout)-1
-        R2=R1*buff
-        tot=tot+R2
-    avg=tot/samples
-    print("Average resistance is "+avg)
+	tot=0
+	for i in range(samples):
+    	#generate PWM
+    	GPIO.output(leftProbe,GPIO.LOW)
+    	GPIO.output(rightProbe,GPIO.HIGH)
+    	sleep(delaySeconds)
+GPIO.output(leftProbe,GPIO.HIGH)
+    	GPIO.output(rightProbe,GPIO.LOW)
 
-
-    if(GPIO.input(Switch_input)):
-        GPIO.output(LED,GPIO.LOW)
-    else:
-        GPIO.output(LED,GPIO.HIGH)
+    	#read the voltage on the analog pin, pot() gives a value b/w 0,1
+    	Vout=acVoltagePin.value*Vin
+    	buff=(Vin/Vout)-1
+    	R2=R1*buff
+    	tot=tot+R2
+    	print("hello")
+avg=tot/samples
+print("Average resistance is "+str(avg))
