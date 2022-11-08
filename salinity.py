@@ -8,7 +8,9 @@
 #afaik, temperature will give us a correction factor
 # we will do r=r*(correction factor)^(temperature diff from calibration temp)
 
-import RPi.GPIO as GPIO    	 
+import RPi.GPIO as GPIO 
+#possibly the library for one wire (which helps with the temperature sensor?)
+import OneWire 
 
 #we will need this module since rpi does not have AC current reader
 from gpiozero import MCP3008    
