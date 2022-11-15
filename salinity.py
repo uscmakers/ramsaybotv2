@@ -40,7 +40,7 @@ Vout=0
 samples=10
 
 #value in ohms, of R1,R2:
-R1=1000
+R1=39
 R2=0
 
 buff=0
