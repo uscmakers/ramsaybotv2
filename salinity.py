@@ -20,7 +20,7 @@ from time import sleep
 #pin setup:
 acVoltagePin = MCP3008(0)
 leftProbe=3
-# rightProbe=5
+rightProbe=5
 
 #GPIO setup:
 GPIO.setwarnings(False)     	#disable warnings
@@ -56,10 +56,11 @@ while True:
 	for i in range(samples):
     	#generate PWM
     	GPIO.output(leftProbe,GPIO.LOW)
-    	# GPIO.output(rightProbe,GPIO.HIGH)
+    	GPIO.output(rightProbe,GPIO.HIGH)
     	sleep(delaySeconds)
 		GPIO.output(leftProbe,GPIO.HIGH)
-    	# GPIO.output(rightProbe,GPIO.LOW)
+    	GPIO.output(rightProbe,GPIO.LOW)
+     	sleep(delaySeconds)
 
     	#read the voltage on the analog pin, pot() gives a value b/w 0,1
     	Vout=acVoltagePin.value*Vin
