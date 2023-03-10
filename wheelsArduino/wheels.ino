@@ -1,5 +1,7 @@
 /*
 
+//source code: https://github.com/srebroa/Arduino/blob/master/ArduinoMega2560/Mecanum_wheel_robot/Mecanum_wheel_robot.ino
+
 //Dual Motor Driver --> Arduino Setup
 .----------------------.-----------------.--------------------.
 |     TB6612FNG        | Type of Control | Arduino Connection |
