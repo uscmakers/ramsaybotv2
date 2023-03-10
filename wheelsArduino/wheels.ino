@@ -140,7 +140,26 @@ void setup(){
 void loop(){
     // Read HC-12
     if(HC12.available()){
-    }
+        String input = HC12.readStringUntil(endNumDelim);
+        input = input.substring(input.indexOf(startNumDelim) + 1);
+        
+        // Split input into motor and value
+        String motor = input.substring(0, input.indexOf(","));
+        String value = input.substring(input.indexOf(",") + 1);
+
+        // Convert value to int
+        int val = value.toInt();
+
+        // Check if value is negative
+        if(val < 0){
+            motorControl(motor, 0, abs(val));
+        }
+        else{
+            motorControl(motor, 1, val);
+        }
+
+        // control motor
+        //motorControl(motor, val);      
 }
 
 
