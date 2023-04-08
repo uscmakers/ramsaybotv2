@@ -71,8 +71,8 @@
 #include <SoftwareSerial.h> //for HC-12 RF module
 
 // Motor driver pins for motor 1
-#define AIN1_1 2
-#define AIN2_1 3
+#define AIN1_1 2  //right front
+#define AIN2_1 3  //left front
 #define PWMA_1 9
 #define BIN1_1 4
 #define BIN2_1 5
@@ -139,10 +139,11 @@ void setup(){
 
 void loop(){
     // Read HC-12 transmission
-    if(HC12.available()){
-        String motorStr = HC12.readStringUntil(startNumDelim);
-        int dir = HC12.readStringUntil(endNumDelim).toInt();
-        int speed = HC12.readStringUntil(endNumDelim).toInt();
+    // if(HC12.available()){
+        String motorStr = "rf";
+        int dir = 1;
+        int speed = 100;
+
 
         // Print motorStr, dir, and speed
         Serial.print("Motor: ");
@@ -154,7 +155,7 @@ void loop(){
 
         // Control motors
         motorControl(motorStr, dir, speed);
-    }
+    // }
 }
 
 
